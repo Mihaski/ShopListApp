@@ -10,7 +10,11 @@ import com.example.shoplistapp.domain.ShopItem
 
 class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopItemViewHolder>() {
 
-    val list = listOf<ShopItem>()
+    var shoplist = listOf<ShopItem>()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     class ShopItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvName = view.findViewById<TextView>(R.id.tv_name)
@@ -18,27 +22,44 @@ class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopItemViewHolder>
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopItemViewHolder {
-//        val layoutId = if (parent.shopItem.enabled) {
-//            R.layout.item_shop_enabled
-//        } else {
-//            R.layout.item_shop_disabled
-//        }
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_shop_enabled, parent, false)
+        val layoutId = when (viewType) {
+            VIEW_TYPE_ENABLED -> R.layout.item_shop_enabled
+            VIEW_TYPE_DISABLED -> R.layout.item_shop_disabled
+            else -> throw RuntimeException("pizdecLayoutPomeniyDa$viewType")
+        }
+        val view = LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
         return ShopItemViewHolder(view)
     }
 
+    override fun getItemViewType(position: Int): Int {
+        val type = if (shoplist[position].enabled) {
+            VIEW_TYPE_ENABLED
+        } else {
+            VIEW_TYPE_DISABLED
+        }
+        return type
+    }
+
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
-        val shopItem = list[position]
+        val shopItem = shoplist[position]
         holder.tvName.text = shopItem.name
         holder.tvCount.text = shopItem.count.toString()
         holder.itemView.setOnLongClickListener {
+//            shopItem.
             true
         }
 
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return shoplist.size
+    }
+
+    companion object {
+
+        const val VIEW_TYPE_ENABLED = 1
+        const val VIEW_TYPE_DISABLED = 0
+
+        const val MAX_POOL_SIZE = 15
     }
 }
