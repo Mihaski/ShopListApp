@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Pushka-Gonka/Desktop/AndCatPro/ShopListApp/app/src/main/res/layout/activity_main.xml" value="0.24010416666666667" />
+        <entry key="..\:/Users/Pushka-Gonka/Desktop/AndCatPro/ShopListApp/app/src/main/res/layout/activity_shop_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Pushka-Gonka/Desktop/AndCatPro/ShopListApp/app/src/main/res/layout/item_shop_disabled.xml" value="0.1453125" />
+        <entry key="..\:/Users/Pushka-Gonka/Desktop/AndCatPro/ShopListApp/app/src/main/res/layout/shop_item_activity.xml" value="0.24166666666666667" />
       </map>
     </option>
   </component>
