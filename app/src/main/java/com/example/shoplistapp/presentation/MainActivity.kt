@@ -1,12 +1,15 @@
 package com.example.shoplistapp.presentation
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoplistapp.R
+import com.example.shoplistapp.presentation.ShopItemActivity.Companion.newIntentAddItem
+import com.example.shoplistapp.presentation.ShopItemActivity.Companion.newIntentEditItem
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +23,11 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.shopListVM.observe(this) {
             shopListAdapter.shoplist = it
+        }
+        val buttonAddItem = findViewById<FloatingActionButton>(R.id.button_add_shop_item)
+        buttonAddItem.setOnClickListener {
+            val intent = newIntentAddItem(this)
+            startActivity(intent)
         }
     }
 
@@ -43,10 +51,11 @@ class MainActivity : AppCompatActivity() {
             viewModel.changeEnableState(it)
         }
         shopListAdapter.onShopItemClickListener = {
-            Log.d("MainActivity", "$it")
+            val intent = newIntentEditItem(this, it.id)
+            startActivity(intent)
         }
-        
-        val callback = object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
+
+        val callback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,

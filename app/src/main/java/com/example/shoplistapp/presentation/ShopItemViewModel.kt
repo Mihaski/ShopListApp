@@ -55,7 +55,7 @@ class ShopItemViewModel : ViewModel() {
         val fieldsValid = validateInput(name, count)
         if (fieldsValid) {
             _shopItem.value?.let {
-                val item = it.copy(name = name, count= count)
+                val item = it.copy(name = name, count = count)
                 editShopItemUseCase.editShopItemUC(item)
                 finishWork()
             }
@@ -87,11 +87,11 @@ class ShopItemViewModel : ViewModel() {
         return result
     }
 
-    private fun resetErrorInputName() {
+    fun resetErrorInputName() {
         _errorInputName.value = false
     }
 
-    private fun resetErrorInputCount() {
+    fun resetErrorInputCount() {
         _errorInputCount.value = false
     }
 
