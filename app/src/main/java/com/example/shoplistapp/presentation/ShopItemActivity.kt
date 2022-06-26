@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.shoplistapp.R
 import com.example.shoplistapp.domain.ShopItem.Companion.UNDEFINED_ID
 
-class ShopItemActivity : AppCompatActivity() {
+class ShopItemActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
 
     //    private lateinit var viewModel: ShopItemViewModel
 
@@ -24,7 +24,16 @@ class ShopItemActivity : AppCompatActivity() {
             MODE_ADD -> ShopItemFragment.newInstanceAddItem()
             else -> throw RuntimeException("Unknown screen mode $screenMode")
         }
-        supportFragmentManager.beginTransaction().add(R.id.shop_item_container, fragment).commit()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.shop_item_container, fragment)
+                .commit()
+        }
+    }
+
+
+    override fun onEditingFinished() {
+        finish()
     }
 
     //    private fun addTextListener() {
