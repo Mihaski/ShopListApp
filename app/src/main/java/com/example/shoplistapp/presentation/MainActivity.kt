@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedList
         setupRecycleView()
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.shopListVM.observe(this) {
-            shopListAdapter.itemList = it
             shopListAdapter.submitList(it)
         }
         val buttonAddItem = findViewById<FloatingActionButton>(R.id.button_add_shop_item)
@@ -92,7 +91,6 @@ class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedList
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val item = shopListAdapter.itemList[viewHolder.adapterPosition]
                 val item = shopListAdapter.currentList[viewHolder.adapterPosition]
                 viewModel.deleteShopItemVM(item)
             }
