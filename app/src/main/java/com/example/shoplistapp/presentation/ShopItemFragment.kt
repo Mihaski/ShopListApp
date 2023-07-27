@@ -20,6 +20,7 @@ class ShopItemFragment() : Fragment() {
     private lateinit var viewModel: ShopItemViewModel
     private lateinit var _binding: FragmentShopItemBinding
     val mBinding get() = _binding
+//    TODO() решить зачем тут глобалБайндинг
 
     private var screenMode: String = MODE_UNKNOWN
     private var shopItemId: Int = UNDEFINED_ID
@@ -140,7 +141,6 @@ class ShopItemFragment() : Fragment() {
     }
 
     interface OnEditingFinishedListener {
-
         fun onEditingFinished()
     }
 

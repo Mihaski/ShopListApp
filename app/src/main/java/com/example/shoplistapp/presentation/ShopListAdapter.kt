@@ -1,6 +1,5 @@
 package com.example.shoplistapp.presentation
 
-import android.icu.util.IslamicCalendar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +11,9 @@ import com.example.shoplistapp.domain.ShopItem
 
 class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopItemViewHolder>() {
 
-    var shoplist = listOf<ShopItem>()
+    var itemList = listOf<ShopItem>()
         set(value) {
-            val callback = ShoppListDiffCallback(shoplist, value)
+            val callback = ShoppListDiffCallback(itemList, value)
             val diffResult = DiffUtil.calculateDiff(callback)
             diffResult.dispatchUpdatesTo(this)
             field = value
@@ -40,16 +39,15 @@ class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopItemViewHolder>
     }
 
     override fun getItemViewType(position: Int): Int {
-        val type = if (shoplist[position].enabled) {
+        return if (itemList[position].enabled) {
             VIEW_TYPE_ENABLED
         } else {
             VIEW_TYPE_DISABLED
         }
-        return type
     }
 
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
-        val shopItem = shoplist[position]
+        val shopItem = itemList[position]
         holder.tvName.text = shopItem.name
         holder.tvCount.text = shopItem.count.toString()
         holder.itemView.setOnLongClickListener {
@@ -62,7 +60,7 @@ class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopItemViewHolder>
     }
 
     override fun getItemCount(): Int {
-        return shoplist.size
+        return itemList.size
     }
 
     companion object {
