@@ -45,11 +45,13 @@ class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedList
     }
 
     private fun launchFragment(fragment: Fragment) {
-        supportFragmentManager.popBackStack()
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.shop_item_container, fragment)
-            .addToBackStack(null)
-            .commit()
+        supportFragmentManager.apply {
+            popBackStack()
+            beginTransaction()
+                .replace(R.id.shop_item_container, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     private fun setupRecycleView() {

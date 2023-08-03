@@ -13,15 +13,11 @@ import com.example.shoplistapp.R
 import com.example.shoplistapp.databinding.FragmentShopItemBinding
 import com.example.shoplistapp.domain.ShopItem.Companion.UNDEFINED_ID
 
-class ShopItemFragment() : Fragment() {
+class ShopItemFragment : Fragment() {
 
-    private lateinit var onEditingFinishedListener:OnEditingFinishedListener
-
+    private lateinit var onEditingFinishedListener: OnEditingFinishedListener
     private lateinit var viewModel: ShopItemViewModel
     private lateinit var _binding: FragmentShopItemBinding
-    val mBinding get() = _binding
-//    TODO() решить зачем тут глобалБайндинг
-
     private var screenMode: String = MODE_UNKNOWN
     private var shopItemId: Int = UNDEFINED_ID
 
@@ -152,21 +148,19 @@ class ShopItemFragment() : Fragment() {
         private const val MODE_ADD = "extra_add"
         private const val MODE_UNKNOWN = ""
 
-        fun newInstanceAddItem(): ShopItemFragment {
-            return ShopItemFragment().apply {
+        fun newInstanceAddItem(): ShopItemFragment =
+            ShopItemFragment().apply {
                 arguments = Bundle().apply {
                     putString(SCREEN_MODE, MODE_ADD)
                 }
             }
-        }
 
-        fun newInstanceEditItem(shopItemId: Int): ShopItemFragment {
-            return ShopItemFragment().apply {
+        fun newInstanceEditItem(shopItemId: Int): ShopItemFragment =
+            ShopItemFragment().apply {
                 arguments = Bundle().apply {
                     putString(SCREEN_MODE, MODE_EDIT)
                     putInt(SHOP_ITEM_ID, shopItemId)
                 }
             }
-        }
     }
 }
