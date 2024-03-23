@@ -3,15 +3,23 @@ package com.example.shoplistapp.data
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import com.example.shoplistapp.di.DaggerNewComponent
 import com.example.shoplistapp.domain.ShopItem
 import com.example.shoplistapp.domain.ShopListRepository
+import javax.inject.Inject
 
-class ShopListRepositoryImpl(
+class ShopListRepositoryImpl @Inject constructor(
     application: Application,
 ) : ShopListRepository {
 
     private val shopListDao = AppDataBase.getInstance(application).shopListDao()
-    private val mapper = ShopListMapper()
+
+    @Inject
+    lateinit var mapper: ShopListMapper
+
+    init {
+        DaggerNewComponent.create().inject(this)
+    }
 
     override suspend fun getShopItemR(shopItemId: Int): ShopItem =
         mapper.mapDBModelToEntity(
