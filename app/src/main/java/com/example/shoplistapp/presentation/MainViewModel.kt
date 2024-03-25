@@ -11,13 +11,17 @@ import com.example.shoplistapp.domain.ShopItem
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
+class MainViewModel @Inject constructor(
+    application: Application,
+    repository: ShopListRepositoryImpl,
+) : AndroidViewModel(application) {
 
-    private val repository = ShopListRepositoryImpl(application)
+//    private val repository = ShopListRepositoryImpl(application) //by dagger
 
     private val getShopListUseCase = GetShopListUC(repository)
     private val deleteShopItemUseCase = DeleteShopItemUC(repository)
     private val editShopItemUseCase = EditShopItemUC(repository)
+
 
     val shopListVM = getShopListUseCase.getShopListUC()
 

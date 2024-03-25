@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedList
         setContentView(R.layout.activity_main)
         shopItemContainer = findViewById(R.id.shop_item_container)
         setupRecycleView()
-//        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+//        viewModel = ViewModelProvider(this)[MainViewModel::class.java] // init by dagger
         viewModel.shopListVM.observe(this) {
             shopListAdapter.submitList(it)
         }
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedList
     private fun setupRecycleView() {
 
         val rvShopList = findViewById<RecyclerView>(R.id.rv_shop_list)
-//        shopListAdapter = ShopListAdapter()
+//        shopListAdapter = ShopListAdapter() // init by dagger
         with(rvShopList) {
             adapter = shopListAdapter
             recycledViewPool.setMaxRecycledViews(
