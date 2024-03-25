@@ -3,7 +3,7 @@ package com.example.shoplistapp.data
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.example.shoplistapp.di.DaggerNewComponent
+import com.example.shoplistapp.di.DaggerShopListRepositoryImplComponent
 import com.example.shoplistapp.domain.ShopItem
 import com.example.shoplistapp.domain.ShopListRepository
 import javax.inject.Inject
@@ -18,7 +18,7 @@ class ShopListRepositoryImpl @Inject constructor(
     lateinit var mapper: ShopListMapper
 
     init {
-        DaggerNewComponent.create().injectShopListRepositoryImpl(this)
+        DaggerShopListRepositoryImplComponent.create().injectShopListRepositoryImpl(this)
     }
 
     override suspend fun getShopItemR(shopItemId: Int): ShopItem =

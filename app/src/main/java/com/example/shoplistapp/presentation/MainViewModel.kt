@@ -9,8 +9,9 @@ import com.example.shoplistapp.domain.EditShopItemUC
 import com.example.shoplistapp.domain.GetShopListUC
 import com.example.shoplistapp.domain.ShopItem
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
 
     private val repository = ShopListRepositoryImpl(application)
 

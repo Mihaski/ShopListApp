@@ -5,11 +5,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoplistapp.R
-import com.example.shoplistapp.di.DaggerNewComponent
+import com.example.shoplistapp.di.DaggerMainActivityComponent
+import com.example.shoplistapp.di.ModuleData
 import com.example.shoplistapp.presentation.ShopItemActivity.Companion.newIntentAddItem
 import com.example.shoplistapp.presentation.ShopItemActivity.Companion.newIntentEditItem
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -17,22 +17,25 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
 
+    @Inject
+    lateinit var viewModel: MainViewModel
 
-    private lateinit var viewModel: MainViewModel
     @Inject
     lateinit var shopListAdapter: ShopListAdapter
     private var shopItemContainer: FragmentContainerView? = null
 
-    init {
-        DaggerNewComponent.create().injectMainActivity(this)
+    private val component by lazy {
+        DaggerMainActivityComponent.builder().moduleData(ModuleData(this.application)).build()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.injectMainActivity(this)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         shopItemContainer = findViewById(R.id.shop_item_container)
         setupRecycleView()
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+//        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.shopListVM.observe(this) {
             shopListAdapter.submitList(it)
         }
@@ -48,7 +51,7 @@ class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedList
     }
 
     override fun onEditingFinished() {
-        Toast.makeText(this@MainActivity,"Success",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@MainActivity, "Success", Toast.LENGTH_SHORT).show()
         supportFragmentManager.popBackStack()
     }
 
@@ -95,7 +98,7 @@ class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedList
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
+                target: RecyclerView.ViewHolder,
             ): Boolean {
                 return false
             }
