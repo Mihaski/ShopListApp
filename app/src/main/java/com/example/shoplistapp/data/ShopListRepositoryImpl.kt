@@ -18,7 +18,7 @@ class ShopListRepositoryImpl @Inject constructor(
     lateinit var mapper: ShopListMapper
 
     init {
-        DaggerNewComponent.create().inject(this)
+        DaggerNewComponent.create().injectShopListRepositoryImpl(this)
     }
 
     override suspend fun getShopItemR(shopItemId: Int): ShopItem =

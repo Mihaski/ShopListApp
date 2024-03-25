@@ -9,15 +9,23 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoplistapp.R
+import com.example.shoplistapp.di.DaggerNewComponent
 import com.example.shoplistapp.presentation.ShopItemActivity.Companion.newIntentAddItem
 import com.example.shoplistapp.presentation.ShopItemActivity.Companion.newIntentEditItem
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
 
+
     private lateinit var viewModel: MainViewModel
-    private lateinit var shopListAdapter: ShopListAdapter
+    @Inject
+    lateinit var shopListAdapter: ShopListAdapter
     private var shopItemContainer: FragmentContainerView? = null
+
+    init {
+        DaggerNewComponent.create().injectMainActivity(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +65,7 @@ class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedList
     private fun setupRecycleView() {
 
         val rvShopList = findViewById<RecyclerView>(R.id.rv_shop_list)
-        shopListAdapter = ShopListAdapter()
+//        shopListAdapter = ShopListAdapter()
         with(rvShopList) {
             adapter = shopListAdapter
             recycledViewPool.setMaxRecycledViews(

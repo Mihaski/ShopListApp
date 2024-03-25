@@ -5,8 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.example.shoplistapp.R
 import com.example.shoplistapp.domain.ShopItem
+import javax.inject.Inject
 
-class ShopListAdapter : ListAdapter<ShopItem, ShopItemViewHolder>(ShopItemDiffCallback()) {
+class ShopListAdapter @Inject constructor() : ListAdapter<ShopItem, ShopItemViewHolder>(ShopItemDiffCallback()) {
 
     var onShopItemLongClickListener: ((ShopItem) -> Unit)? = null
 
@@ -16,7 +17,7 @@ class ShopListAdapter : ListAdapter<ShopItem, ShopItemViewHolder>(ShopItemDiffCa
         val layoutId = when (viewType) {
             VIEW_TYPE_ENABLED -> R.layout.item_shop_enabled
             VIEW_TYPE_DISABLED -> R.layout.item_shop_disabled
-            else -> throw RuntimeException("pizdecLayoutPomeniyDa$viewType")
+            else -> throw RuntimeException("LayoutPomeniyDa$viewType")
         }
         val view = LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
         return ShopItemViewHolder(view)
