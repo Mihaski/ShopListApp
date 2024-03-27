@@ -1,8 +1,9 @@
 package com.example.shoplistapp.domain
 
 import androidx.lifecycle.LiveData
+import javax.inject.Inject
 
-class GetShopListUC(private val shopListRepository: ShopListRepository) {
+class GetShopListUC @Inject constructor(private val shopListRepository: ShopListRepository) {
 
     fun getShopListUC(): LiveData<List<ShopItem>> {
         return shopListRepository.getShopListR()

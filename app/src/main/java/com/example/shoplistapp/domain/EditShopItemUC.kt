@@ -1,6 +1,8 @@
 package com.example.shoplistapp.domain
 
-class EditShopItemUC(private val shopListRepository: ShopListRepository) {
+import javax.inject.Inject
+
+class EditShopItemUC @Inject constructor(private val shopListRepository: ShopListRepository) {
 
     suspend fun editShopItemUC(shopItem: ShopItem) {
         shopListRepository.editShopItemR(shopItem)

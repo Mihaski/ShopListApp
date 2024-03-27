@@ -3,7 +3,6 @@ package com.example.shoplistapp.presentation
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.shoplistapp.data.ShopListRepositoryImpl
 import com.example.shoplistapp.domain.DeleteShopItemUC
 import com.example.shoplistapp.domain.EditShopItemUC
 import com.example.shoplistapp.domain.GetShopListUC
@@ -13,14 +12,16 @@ import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
     application: Application,
-    repository: ShopListRepositoryImpl,
+    getShopListUseCase: GetShopListUC,
+    private val deleteShopItemUseCase : DeleteShopItemUC,
+    private val editShopItemUseCase: EditShopItemUC
 ) : AndroidViewModel(application) {
 
 //    private val repository = ShopListRepositoryImpl(application) //by dagger
 
-    private val getShopListUseCase = GetShopListUC(repository)
-    private val deleteShopItemUseCase = DeleteShopItemUC(repository)
-    private val editShopItemUseCase = EditShopItemUC(repository)
+//    private val getShopListUseCase = GetShopListUC(repository) //by dagger
+//    private val deleteShopItemUseCase = DeleteShopItemUC(repository) //by dagger
+//    private val editShopItemUseCase = EditShopItemUC(repository) //by dagger
 
 
     val shopListVM = getShopListUseCase.getShopListUC()

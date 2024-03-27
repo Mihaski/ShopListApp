@@ -15,7 +15,7 @@ class ModuleData(private val application: Application) {
     }
 
     @Provides
-    fun bindShopListRepository(impl: ShopListRepositoryImpl): ShopListRepository {
+    fun provideShopListRepository(impl: ShopListRepositoryImpl): ShopListRepository {
         return impl
     }
 }
