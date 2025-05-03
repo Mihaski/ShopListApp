@@ -10,12 +10,13 @@ import javax.inject.Inject
 
 class ShopListRepositoryImpl @Inject constructor(
     application: Application,
+    private val mapper: ShopListMapper
 ) : ShopListRepository {
 
     private val shopListDao = AppDataBase.getInstance(application).shopListDao()
 
-    @Inject
-    lateinit var mapper: ShopListMapper
+//  @Inject
+//  lateinit var mapper: ShopListMapper // init by dagger however init dagger, move in constructor
 
     init {
         DaggerShopListRepositoryImplComponent.create().injectShopListRepositoryImpl(this)
