@@ -10,8 +10,9 @@ import com.example.shoplistapp.domain.EditShopItemUC
 import com.example.shoplistapp.domain.GetShopItemUC
 import com.example.shoplistapp.domain.ShopItem
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ShopItemViewModel(
+class ShopItemViewModel @Inject constructor(
     application: Application,
     private val getShopItemUseCase: GetShopItemUC,
     private val addShopItemUseCase: AddShopItemUC,

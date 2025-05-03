@@ -8,18 +8,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.shoplistapp.R
 import com.example.shoplistapp.databinding.FragmentShopItemBinding
+import com.example.shoplistapp.di.DaggerShopItemFragmentComponent
+import com.example.shoplistapp.di.ModuleData
 import com.example.shoplistapp.domain.ShopItem.Companion.UNDEFINED_ID
+import javax.inject.Inject
 
 class ShopItemFragment : Fragment() {
 
+    @Inject
+    lateinit var viewModel: ShopItemViewModel
     private lateinit var onEditingFinishedListener: OnEditingFinishedListener
-    private lateinit var viewModel: ShopItemViewModel
     private lateinit var _binding: FragmentShopItemBinding
     private var screenMode: String = MODE_UNKNOWN
     private var shopItemId: Int = UNDEFINED_ID
+
+    private val component by lazy {
+        DaggerShopItemFragmentComponent.builder()
+            .moduleData(ModuleData(requireActivity().application)).build()
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -28,6 +36,8 @@ class ShopItemFragment : Fragment() {
         } else {
             throw RuntimeException("Activity must implement OnEditingFinishedListener")
         }
+
+        component.injectShopItemFragment(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +55,7 @@ class ShopItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[ShopItemViewModel::class.java]
+//        viewModel = ViewModelProvider(this)[ShopItemViewModel::class.java] //init by dagger
         addTextListener()
         observeViewModel()
         when (screenMode) {

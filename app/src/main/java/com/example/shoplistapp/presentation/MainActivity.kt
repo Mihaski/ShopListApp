@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedList
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         shopItemContainer = findViewById(R.id.shop_item_container)
         setupRecycleView()
 //        viewModel = ViewModelProvider(this)[MainViewModel::class.java] // init by dagger
